@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VegeBiosEditor", "VegeBiosEditor.csproj", "{1816A564-3024-42C2-B461-3BB8AEA2061B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VegaBiosEditor", "VegaBiosEditor.csproj", "{1816A564-3024-42C2-B461-3BB8AEA2061B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

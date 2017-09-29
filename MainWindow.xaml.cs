@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VegeBiosEditor
+namespace VegaBiosEditor
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
