@@ -22,5 +22,53 @@ namespace VegaBiosEditor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowNag {
+            get {
+                return ((bool)(this["ShowNag"]));
+            }
+            set {
+                this["ShowNag"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowFriendlyTableName {
+            get {
+                return ((bool)(this["ShowFriendlyTableName"]));
+            }
+            set {
+                this["ShowFriendlyTableName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowFriendlyRowName {
+            get {
+                return ((bool)(this["ShowFriendlyRowName"]));
+            }
+            set {
+                this["ShowFriendlyRowName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowRawValues {
+            get {
+                return ((bool)(this["ShowRawValues"]));
+            }
+            set {
+                this["ShowRawValues"] = value;
+            }
+        }
     }
 }

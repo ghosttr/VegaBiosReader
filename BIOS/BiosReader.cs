@@ -45,16 +45,16 @@ namespace VegaBiosEditor
                 
                 atom_rom_deviceId = Util.FromBytes<BiosStruct.ATOM_ROM_DEVICEID>(buffer.Skip(Util.GetValueAtPosition(buffer, 16, BiosStruct.rom_deviceId_pointer)).ToArray());
                 atom_rom_header = Util.FromBytes<BiosStruct.ATOM_ROM_HEADER>(buffer.Skip(Util.GetValueAtPosition(buffer, 16, BiosStruct.rom_header_pointer)).ToArray());
-                atom_data_table = Util.FromBytes<BiosStruct.ATOM_DATA_TABLES>(buffer.Skip(atom_rom_header.usMasterDataTableOffset).ToArray());
+                atom_data_table = Util.FromBytes<BiosStruct.ATOM_DATA_TABLES>(buffer.Skip(atom_rom_header.MasterDataTableOffset).ToArray());
 
                 atom_powerplay_table = Util.FromBytes<BiosStruct.ATOM_POWERPLAY_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo).ToArray());
-                atom_powertune_table = Util.FromBytes<BiosStruct.ATOM_POWERTUNE_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.usPowerTuneTableOffset).ToArray());
-                atom_fan_table = Util.FromBytes<BiosStruct.ATOM_FAN_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.usFanTableOffset).ToArray());
-                atom_sclk_table = Util.FromBytes<BiosStruct.ATOM_SCLK_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.usGfxclkDependencyTableOffset).ToArray());
+                atom_powertune_table = Util.FromBytes<BiosStruct.ATOM_POWERTUNE_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.PowerTuneTableOffset).ToArray());
+                atom_fan_table = Util.FromBytes<BiosStruct.ATOM_FAN_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.FanTableOffset).ToArray());
+                atom_sclk_table = Util.FromBytes<BiosStruct.ATOM_SCLK_TABLE>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.GfxclkDependencyTableOffset).ToArray());
                 atom_sclk_entries = new BiosStruct.ATOM_SCLK_ENTRY[atom_sclk_table.ucNumEntries];
                 for (var i = 0; i < atom_sclk_entries.Length; i++)
                 {
-                    atom_sclk_entries[i] = Util.FromBytes<BiosStruct.ATOM_SCLK_ENTRY>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.usGfxclkDependencyTableOffset + Marshal.SizeOf(typeof(BiosStruct.ATOM_SCLK_TABLE)) + Marshal.SizeOf(typeof(BiosStruct.ATOM_SCLK_ENTRY)) * i).ToArray());
+                    atom_sclk_entries[i] = Util.FromBytes<BiosStruct.ATOM_SCLK_ENTRY>(buffer.Skip(atom_data_table.PowerPlayInfo + atom_powerplay_table.GfxclkDependencyTableOffset + Marshal.SizeOf(typeof(BiosStruct.ATOM_SCLK_TABLE)) + Marshal.SizeOf(typeof(BiosStruct.ATOM_SCLK_ENTRY)) * i).ToArray());
                 }
                 br.Close();
             }

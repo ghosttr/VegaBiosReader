@@ -9,57 +9,55 @@ namespace VegaBiosEditor
 {
     public class BiosStruct
     {
-        //same as polaris, etc
         public static int rom_header_pointer = 0x48;
-        //this pointer also exists in polaris, but the data isnt packed at the end of ATOM_ROM_HEADER anymore
         public static int rom_deviceId_pointer = 0x18;
 
-        //Was as end of ROM_HEADER, now (correctly) using pointer
+        //Was as end of ROM_HEADER, use rom_deviceId_pointer instead
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_ROM_DEVICEID
+        public unsafe struct ATOM_ROM_DEVICEID
         {
-            public UInt32 ulPSPDirTableOffset;
-            public UInt16 usVendorID;
-            public UInt16 usDeviceID;
+            public UInt32 PSPDirTableOffset;
+            public UInt16 VendorID;
+            public UInt16 DeviceID;
         }
 
-        //Same as Polaris, Etc
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_COMMON_TABLE_HEADER
+        public unsafe struct ATOM_COMMON_TABLE_HEADER
         {
-            public Int16 usStructureSize;
-            public Byte ucTableFormatRevision;
-            public Byte ucTableContentRevision;
+            public Int16 StructureSize;
+            public Byte TableFormatRevision;
+            public Byte TableContentRevision;
         }
+
         //Uint32 padded at end to make correct
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_ROM_HEADER
+        [Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public unsafe struct ATOM_ROM_HEADER
         {
-            public ATOM_COMMON_TABLE_HEADER sHeader;
-            public UInt32 uaFirmWareSignature;
-            public UInt16 usBiosRuntimeSegmentAddress;
-            public UInt16 usProtectedModeInfoOffset;
-            public UInt16 usConfigFilenameOffset;
-            public UInt16 usCRC_BlockOffset;
-            public UInt16 usBIOS_BootupMessageOffset;
-            public UInt16 usInt10Offset;
-            public UInt16 usPciBusDevInitCode;
-            public UInt16 usIoBaseAddress;
-            public UInt16 usSubsystemVendorID;
-            public UInt16 usSubsystemID;
-            public UInt16 usPCI_InfoOffset;
-            public UInt16 usMasterCommandTableOffset;
-            public UInt16 usMasterDataTableOffset;
-            public Byte ucExtendedFunctionCode;
-            public Byte ucReserved;
+            public ATOM_COMMON_TABLE_HEADER Header;
+            public UInt32 FirmWareSignature;
+            public UInt16 BiosRuntimeSegmentAddress;
+            public UInt16 ProtectedModeInfoOffset;
+            public UInt16 ConfigFilenameOffset;
+            public UInt16 CRC_BlockOffset;
+            public UInt16 BIOS_BootupMessageOffset;
+            public UInt16 Int10Offset;
+            public UInt16 PciBusDevInitCode;
+            public UInt16 IoBaseAddress;
+            public UInt16 SubsystemVendorID;
+            public UInt16 SubsystemID;
+            public UInt16 PCI_InfoOffset;
+            public UInt16 MasterCommandTableOffset;
+            public UInt16 MasterDataTableOffset;
+            public Byte ExtendedFunctionCode;
+            public Byte Reserved;
             public UInt32 UnknownBytes;
         }
 
         //Same as Polaris, Etc
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_DATA_TABLES
+        public unsafe struct ATOM_DATA_TABLES
         {
-            public ATOM_COMMON_TABLE_HEADER sHeader;
+            public ATOM_COMMON_TABLE_HEADER Header;
             public UInt16 UtilityPipeLine;
             public UInt16 MultimediaCapabilityInfo;
             public UInt16 MultimediaConfigInfo;
@@ -97,58 +95,56 @@ namespace VegaBiosEditor
             public UInt16 ServiceInfo;
         };
 
-        //http://www.overclock.net/t/1633446/preliminary-view-of-amd-vega-bios
-        //Better than tones of unknown bytes lol
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_POWERPLAY_TABLE
+        public unsafe struct ATOM_POWERPLAY_TABLE
         {
-            public ATOM_COMMON_TABLE_HEADER sHeader;
-            public Byte ucTableRevision;
-            public UInt16 usTableSize;
-            public UInt32 ulGoldenPPID;
-            public UInt32 ulGoldenRevision;
-            public UInt16 usFormatID;
-            public UInt32 ulPlatformCaps;
-            public UInt32 ulMaxODEngineClock;
-            public UInt32 ulMaxODMemoryClock;
-            public UInt16 usPowerControlLimit;
-            public UInt16 usUlvVoltageOffset;
-            public UInt16 usUlvSmnclkDid;
-            public UInt16 usUlvMp1clkDid;
-            public UInt16 usUlvGfxclkBypass;
-            public UInt16 usGfxclkSlewRate;
-            public Byte ucGfxVoltageMode;
-            public Byte ucSocVoltageMode;
-            public Byte ucUclkVoltageMode;
-            public Byte ucUvdVoltageMode;
-            public Byte ucVceVoltageMode;
-            public Byte ucMp0VoltageMode;
-            public Byte ucDcefVoltageMode;
-            public UInt16 usStateArrayOffset;
-            public UInt16 usFanTableOffset;
-            public UInt16 usThermalControllerOffset;
-            public UInt16 usSocclkDependencyTableOffset;
-            public UInt16 usMclkDependencyTableOffset;
-            public UInt16 usGfxclkDependencyTableOffset;
-            public UInt16 usDcefclkDependencyTableOffset;
-            public UInt16 usVddcLookupTableOffset;
-            public UInt16 usVddmemLookupTableOffset;
-            public UInt16 usMMDependencyTableOffset;
-            public UInt16 usVCEStateTableOffset;
-            public UInt16 usReserv;
-            public UInt16 usPowerTuneTableOffset;
-            public UInt16 usHardLimitTableOffset;
-            public UInt16 usVddciLookupTableOffset;
-            public UInt16 usPCIETableOffset;
-            public UInt16 usPixclkDependencyTableOffset;
-            public UInt16 usDispClkDependencyTableOffset;
-            public UInt16 usPhyClkDependencyTableOffset;
+            public ATOM_COMMON_TABLE_HEADER Header;
+            public Byte TableRevision;
+            public UInt16 TableSize;
+            public UInt32 GoldenPPID;
+            public UInt32 GoldenRevision;
+            public UInt16 FormatID;
+            public UInt32 PlatformCaps;
+            public UInt32 MaxODEngineClock;
+            public UInt32 MaxODMemoryClock;
+            public UInt16 PowerControlLimit;
+            public UInt16 UlvVoltageOffset;
+            public UInt16 UlvSmnclkDid;
+            public UInt16 UlvMp1clkDid;
+            public UInt16 UlvGfxclkBypass;
+            public UInt16 GfxclkSlewRate;
+            public Byte GfxVoltageMode;
+            public Byte SocVoltageMode;
+            public Byte UclkVoltageMode;
+            public Byte UvdVoltageMode;
+            public Byte VceVoltageMode;
+            public Byte Mp0VoltageMode;
+            public Byte DcefVoltageMode;
+            public UInt16 StateArrayOffset;
+            public UInt16 FanTableOffset;
+            public UInt16 ThermalControllerOffset;
+            public UInt16 SocclkDependencyTableOffset;
+            public UInt16 MclkDependencyTableOffset;
+            public UInt16 GfxclkDependencyTableOffset;
+            public UInt16 DcefclkDependencyTableOffset;
+            public UInt16 VddcLookupTableOffset;
+            public UInt16 VddmemLookupTableOffset;
+            public UInt16 MMDependencyTableOffset;
+            public UInt16 VCEStateTableOffset;
+            public UInt16 Reserv;
+            public UInt16 PowerTuneTableOffset;
+            public UInt16 HardLimitTableOffset;
+            public UInt16 VddciLookupTableOffset;
+            public UInt16 PCIETableOffset;
+            public UInt16 PixclkDependencyTableOffset;
+            public UInt16 DispClkDependencyTableOffset;
+            public UInt16 PhyClkDependencyTableOffset;
         };
 
         //http://www.overclock.net/t/1633446/preliminary-view-of-amd-vega-bios
         //seems to be 2 versions, maybe take a look for some identifier?
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_POWERTUNE_TABLE
+        public unsafe struct ATOM_POWERTUNE_TABLE
         {
             public Byte ucRevId;
             public UInt16 usSocketPowerLimit;
@@ -185,28 +181,17 @@ namespace VegaBiosEditor
             public UInt16 usTemperatureLimitTedge;
         };
 
-        //well i got 2 things right ¯\_(ツ)_/¯
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_FAN_TABLE
+        public unsafe struct ATOM_FAN_TABLE
         {
             public Byte ucRevId;
             public UInt16 usFanOutputSensitivity;
-
-            /*
-            public Byte ucTHyst;
-            public UInt16 usTMin;
-            public UInt16 usTMed;
-            public UInt16 usTHigh;
-            public UInt16 usPWMMin;
-            public UInt16 usPWMMed;
-            public UInt16 usPWMHigh;
-            public UInt16 usTMax;
-            public Byte ucFanControlMode;
-            public UInt16 usFanPWMMax;
             public UInt16 usFanRPMMax;
-            public UInt32 ulMinFanSCLKAcousticLimit;
-            public Byte ucTargetTemperature;
-            public Byte ucMinimumPWMLimit;
+            public UInt16 usThrottlingRPM;
+            public UInt16 usFanAcousticLimit;
+            public UInt16 usTargetTemperature;
+            public UInt16 usMinimumPWMLimit;
+            public UInt16 usTargetGfxClk;
             public UInt16 usFanGainEdge;
             public UInt16 usFanGainHotspot;
             public UInt16 usFanGainLiquid;
@@ -214,12 +199,13 @@ namespace VegaBiosEditor
             public UInt16 usFanGainVrMvdd;
             public UInt16 usFanGainPlx;
             public UInt16 usFanGainHbm;
-            public UInt16 usReserved;
-            */
+            public Byte ucEnableZeroRPM;
+            public UInt16 usFanStopTemperature;
+            public UInt16 usFanStartTemperature;
         };
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_SCLK_TABLE
+        public unsafe struct ATOM_SCLK_TABLE
         {
             public Byte ucRevId;
             public Byte ucNumEntries;
@@ -227,7 +213,7 @@ namespace VegaBiosEditor
 
         //Need sleep >.>
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct ATOM_SCLK_ENTRY
+        public unsafe struct ATOM_SCLK_ENTRY
         {
             public UInt32 ulSclk;
             public Byte usEdcCurrent;
